@@ -77,8 +77,8 @@ CREATE TABLE IF NOT EXISTS reports (
 
 INSERT INTO users (username, password, role, email, status)
 VALUES
-  ('admin', '$2a$10$CwTycUXWue0Thq9StjUM0uJ8zH0GJg9VdQYjPYycA3thmD8CWn6Nm', 'admin', 'admin@wipeph.local', 'active'),
-  ('staff', '$2a$10$CwTycUXWue0Thq9StjUM0uJ8zH0GJg9VdQYjPYycA3thmD8CWn6Nm', 'staff', 'staff@wipeph.local', 'active')
+  ('admin', '$2a$10$LqPmvIuc1tKFxvf2aanf/.1W7IyzpgsETCnyKl8NMJfNy18JZnHHi', 'admin', 'admin@wipeph.local', 'active'),
+  ('staff', '$2a$10$LqPmvIuc1tKFxvf2aanf/.1W7IyzpgsETCnyKl8NMJfNy18JZnHHi', 'staff', 'staff@wipeph.local', 'active')
 ON CONFLICT (username) DO NOTHING;
 
 INSERT INTO services_category (id, name) VALUES

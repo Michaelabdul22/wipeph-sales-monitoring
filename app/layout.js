@@ -1,4 +1,5 @@
 import './globals.css';
+import AppEffects from '@/components/AppEffects';
 
 export const metadata = {
   title: 'WIPE PH Sales Monitoring',
@@ -8,7 +9,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AppEffects />
+        {children}
+      </body>
     </html>
   );
 }

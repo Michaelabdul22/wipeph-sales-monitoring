@@ -1,6 +1,7 @@
 import LoginForm from './LoginForm';
 
-export default function LoginPage() {
+export default async function LoginPage({ searchParams }) {
+  const params = await searchParams;
   return (
     <main className="login-page">
       <div className="login-art">
@@ -11,6 +12,7 @@ export default function LoginPage() {
           <img className="logo" src="/backgroundfrontpagelogin.png" alt="WIPE PH logo" />
           <h1>WIPE PHILIPPINES</h1>
           <p style={{ color: '#666', fontWeight: 900, letterSpacing: 1 }}>LOGIN</p>
+          {params?.expired ? <div className="alert">Your session expired. Please log in again.</div> : null}
           <LoginForm />
           <p style={{ marginTop: 28 }}>
             <a href="/forgot-password" style={{ color: '#666', fontWeight: 700 }}>Forgot Password?</a>

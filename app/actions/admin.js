@@ -61,6 +61,7 @@ export async function addUser(formData) {
   const email = String(formData.get('email') || '').trim();
   const password = String(formData.get('password') || '');
   const role = String(formData.get('role') || 'staff');
+  if (password.length < 8) redirect('/admin/users?error=weak');
   if (username && email && password && ['admin', 'staff'].includes(role)) {
     const hash = await bcrypt.hash(password, 10);
     await sql`
@@ -69,21 +70,25 @@ export async function addUser(formData) {
     `;
   }
   revalidatePath('/admin/users');
-  redirect('/admin/users');
+  redirect('/admin/users?saved=1');
 }
 
 export async function archiveUser(formData) {
-  await requireRole('admin');
+  const currentUser = await requireRole('admin');
   const id = Number(formData.get('id'));
-  if (id) await sql`UPDATE users SET status = 'archived' WHERE id = ${id}`;
+  if (id && id !== Number(currentUser.id)) {
+    await sql`UPDATE users SET status = 'archived' WHERE id = ${id}`;
+  }
   revalidatePath('/admin/users');
   redirect('/admin/users');
 }
 
 export async function deleteUser(formData) {
-  await requireRole('admin');
+  const currentUser = await requireRole('admin');
   const id = Number(formData.get('id'));
-  if (id) await sql`DELETE FROM users WHERE id = ${id}`;
+  if (id && id !== Number(currentUser.id)) {
+    await sql`DELETE FROM users WHERE id = ${id}`;
+  }
   revalidatePath('/admin/users');
   redirect('/admin/users');
 }

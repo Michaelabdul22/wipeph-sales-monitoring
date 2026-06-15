@@ -13,20 +13,20 @@ export default async function ServicesPage() {
   return (
     <>
       <PageTitle title="Data Management" subtitle="Maintain service categories, service types, and add-ons." />
-      <section className="grid grid-3">
-        <form action={addCategory} className="card grid">
+      <section className="grid grid-3 management-grid">
+        <form action={addCategory} className="card form-container grid">
           <h3>Add Category</h3>
           <input className="input" name="name" placeholder="Category name" required />
           <button className="btn btn-primary">Add Category</button>
         </form>
-        <form action={addServiceType} className="card grid">
+        <form action={addServiceType} className="card form-container grid">
           <h3>Add Service Type</h3>
           <select className="select" name="category_id">{categories.rows.map(row => <option key={row.id} value={row.id}>{row.name}</option>)}</select>
           <input className="input" name="name" placeholder="Service name" required />
           <input className="input" name="price" type="number" step="0.01" placeholder="Price" required />
           <button className="btn btn-primary">Add Service</button>
         </form>
-        <form action={addAddon} className="card grid">
+        <form action={addAddon} className="card form-container grid">
           <h3>Add Add-on</h3>
           <select className="select" name="category_id">{categories.rows.map(row => <option key={row.id} value={row.id}>{row.name}</option>)}</select>
           <input className="input" name="name" placeholder="Add-on name" required />
@@ -35,8 +35,8 @@ export default async function ServicesPage() {
         </form>
       </section>
 
-      <section className="card" style={{ marginTop: 18 }}>
-        <h3>Service Types</h3>
+      <section className="card table-container" style={{ marginTop: 18 }}>
+        <h3 className="table-title">Service Types</h3>
         <div className="table-wrap">
           <table>
             <thead><tr><th>Category</th><th>Name</th><th>Price</th><th>Action</th></tr></thead>
@@ -49,13 +49,14 @@ export default async function ServicesPage() {
                   <td data-label="Action"><DeleteButton table="service" id={row.id} /></td>
                 </tr>
               ))}
+              {!services.rows.length ? <tr><td colSpan="4"><div className="empty-state">No service types yet. Add one using the form above.</div></td></tr> : null}
             </tbody>
           </table>
         </div>
       </section>
 
-      <section className="card" style={{ marginTop: 18 }}>
-        <h3>Add-ons</h3>
+      <section className="card table-container" style={{ marginTop: 18 }}>
+        <h3 className="table-title">Add-ons</h3>
         <div className="table-wrap">
           <table>
             <thead><tr><th>Category</th><th>Name</th><th>Price</th><th>Action</th></tr></thead>
@@ -68,6 +69,7 @@ export default async function ServicesPage() {
                   <td data-label="Action"><DeleteButton table="addon" id={row.id} /></td>
                 </tr>
               ))}
+              {!addons.rows.length ? <tr><td colSpan="4"><div className="empty-state">No add-ons yet. Add-ons will appear by category.</div></td></tr> : null}
             </tbody>
           </table>
         </div>

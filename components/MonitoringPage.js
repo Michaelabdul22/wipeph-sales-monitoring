@@ -16,14 +16,14 @@ export default async function MonitoringPage() {
 
   return (
     <div className="grid">
-      <section className="grid grid-3">
-        <div className="card"><strong>Total</strong><div className="stat-value">{summary.total}</div></div>
-        <div className="card"><strong>Paid</strong><div className="stat-value">{summary.paid}</div></div>
-        <div className="card"><strong>With Balance</strong><div className="stat-value">{summary.withBalance}</div></div>
+      <section className="grid grid-3 summary-grid">
+        <div className="card summary-card"><strong>Total</strong><div className="stat-value">{summary.total}</div></div>
+        <div className="card summary-card"><strong>Paid</strong><div className="stat-value">{summary.paid}</div></div>
+        <div className="card summary-card"><strong>With Balance</strong><div className="stat-value">{summary.withBalance}</div></div>
       </section>
 
-      <section className="card">
-        <h3>Transactions</h3>
+      <section className="card table-container">
+        <h3 className="table-title">Transactions</h3>
         <div className="table-wrap">
           <table>
             <thead>
@@ -62,14 +62,14 @@ export default async function MonitoringPage() {
                   </td>
                 </tr>
               ))}
-              {!transactions.length ? <tr><td colSpan="7">No transactions yet.</td></tr> : null}
+              {!transactions.length ? <tr><td colSpan="7"><div className="empty-state">No transactions yet. New sales will appear here.</div></td></tr> : null}
             </tbody>
           </table>
         </div>
       </section>
 
-      <section className="card">
-        <h3>Activity Log</h3>
+      <section className="card table-container">
+        <h3 className="table-title">Activity Log</h3>
         <div className="table-wrap">
           <table>
             <thead>
@@ -91,7 +91,7 @@ export default async function MonitoringPage() {
                   <td data-label="Date">{dateTime(log.changed_at)}</td>
                 </tr>
               ))}
-              {!logs.length ? <tr><td colSpan="5">No activity yet.</td></tr> : null}
+              {!logs.length ? <tr><td colSpan="5"><div className="empty-state">No activity history yet. Status changes will be listed here.</div></td></tr> : null}
             </tbody>
           </table>
         </div>
